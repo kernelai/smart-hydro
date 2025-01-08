@@ -6,64 +6,80 @@
         <el-menu-item index="2">关于</el-menu-item>
         <div class="flex-grow" />
         <el-menu-item index="3">
-          <el-button type="primary">登录</el-button>
+          <el-button type="primary" @click="dialogVisible = true">登录</el-button>
         </el-menu-item>
       </el-menu>
     </el-header>
 
     <el-main>
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-card>
-            <template #header>
-              <div class="card-header">
-                <span>卡片标题</span>
-                <el-button class="button" text>操作按钮</el-button>
-              </div>
-            </template>
-            <div v-for="i in 4" :key="i" class="text item">
-              {{ '列表项 ' + i }}
+      <div class="welcome-section">
+        <!-- 这里替换成你的实际图片路径 -->
+        <el-image
+          src="/src/assets/welcome.jpg"
+          fit="cover"
+          class="welcome-image"
+        >
+          <template #error>
+            <div class="image-slot">
+              <el-icon><Picture /></el-icon>
             </div>
-          </el-card>
-        </el-col>
-        <el-col :span="12">
-          <el-form :model="form" label-width="120px">
-            <el-form-item label="活动名称">
-              <el-input v-model="form.name" />
-            </el-form-item>
-            <el-form-item label="活动时间">
-              <el-date-picker
-                v-model="form.date"
-                type="date"
-                placeholder="选择日期"
-                style="width: 100%"
-              />
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="onSubmit">创建</el-button>
-              <el-button>取消</el-button>
-            </el-form-item>
-          </el-form>
-        </el-col>
-      </el-row>
+          </template>
+        </el-image>
+      </div>
     </el-main>
 
+    <!-- 登录对话框 -->
+    <el-dialog
+      v-model="dialogVisible"
+      title="用户登录"
+      width="30%"
+      :close-on-click-modal="false"
+    >
+      <el-form :model="loginForm" label-width="80px">
+        <el-form-item label="用户名">
+          <el-input v-model="loginForm.username" placeholder="请输入用户名" />
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input
+            v-model="loginForm.password"
+            type="password"
+            placeholder="请输入密码"
+            show-password
+          />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="handleLogin">登录</el-button>
+        </span>
+      </template>
+    </el-dialog>
+
     <el-footer>
-      <p>© 2025 我的应用</p>
+      <p>© 2024 我的应用</p>
     </el-footer>
   </el-container>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { ref, reactive } from 'vue'
+import { Picture } from '@element-plus/icons-vue'
 
-const form = reactive({
-  name: '',
-  date: ''
+// 控制登录对话框的显示
+const dialogVisible = ref(false)
+
+// 登录表单数据
+const loginForm = reactive({
+  username: '',
+  password: ''
 })
 
-const onSubmit = () => {
-  console.log('submit!', form)
+// 处理登录逻辑
+const handleLogin = () => {
+  console.log('登录信息：', loginForm)
+  // TODO: 实现登录逻辑
+  dialogVisible.value = false
 }
 </script>
 
@@ -85,17 +101,35 @@ const onSubmit = () => {
   padding: 20px;
 }
 
-.card-header {
+.welcome-section {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
-.text {
-  font-size: 14px;
+.welcome-image {
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
-.item {
-  margin-bottom: 18px;
+.image-slot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: #f5f7fa;
+  color: #909399;
+  font-size: 30px;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
 }
 </style>
