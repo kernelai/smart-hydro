@@ -2,10 +2,11 @@
   <el-container>
     <el-header>
       <el-menu mode="horizontal" :ellipsis="false">
-        <el-menu-item index="1">首页</el-menu-item>
-        <el-menu-item index="2">关于</el-menu-item>
+        <el-menu-item index="0" class="logo-title">
+          智慧水利平台
+        </el-menu-item>
         <div class="flex-grow" />
-        <el-menu-item index="3">
+        <el-menu-item index="1">
           <el-button type="primary" @click="dialogVisible = true">登录</el-button>
         </el-menu-item>
       </el-menu>
@@ -13,18 +14,20 @@
 
     <el-main>
       <div class="welcome-section">
-        <!-- 这里替换成你的实际图片路径 -->
-        <el-image
-          src="/src/assets/welcome.jpg"
-          fit="cover"
-          class="welcome-image"
-        >
-          <template #error>
-            <div class="image-slot">
-              <el-icon><Picture /></el-icon>
-            </div>
-          </template>
-        </el-image>
+        <div class="content-wrapper">
+          <h1 class="main-title">河海大学智慧水利平台</h1>
+          <el-image
+            src="/src/assets/welcome.jpg"
+            fit="cover"
+            class="welcome-image"
+          >
+            <template #error>
+              <div class="image-slot">
+                <el-icon><Picture /></el-icon>
+              </div>
+            </template>
+          </el-image>
+        </div>
       </div>
     </el-main>
 
@@ -57,7 +60,7 @@
     </el-dialog>
 
     <el-footer>
-      <p>© 2024 我的应用</p>
+      <p>© 2025 我的应用</p>
     </el-footer>
   </el-container>
 </template>
@@ -105,15 +108,19 @@ const handleLogin = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 40px;
+  background-color: #f5f7fa;
+  min-height: calc(100vh - 60px - 60px);
 }
 
 .welcome-image {
   width: 100%;
-  max-width: 800px;
-  height: 400px;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  height: auto;
+  min-height: 500px;
+  object-fit: contain;
+  border-radius: 0px;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
 }
 
 .image-slot {
@@ -131,5 +138,29 @@ const handleLogin = () => {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
+}
+
+.logo-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #409EFF !important;
+  padding-right: 20px;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.main-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #303133;
+  margin-bottom: 30px;
+  text-align: center;
+  /* 可选的文字阴影效果 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 </style>
